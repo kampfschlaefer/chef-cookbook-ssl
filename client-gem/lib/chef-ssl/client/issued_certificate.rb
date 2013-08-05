@@ -53,8 +53,12 @@ module ChefSSL
           :host => @req.host,
           :certificate => @cert.to_pem
         }
-        unless @ca.nil?
-          data[:cacert] = @ca.certificate.to_pem
+        if @ca.kind_of? String
+          data[:cacert] = @ca
+        else
+          unless @ca.nil?
+            data[:cacert] = @ca.certificate.to_pem
+          end
         end
 
         begin

@@ -23,9 +23,9 @@ module ChefSSL
         @csr.to_pem
       end
 
-      def issue_certificate(cert_text)
+      def issue_certificate(cert_text, ca_text)
         cert = EaSSL::Certificate.new({}).load(cert_text)
-        IssuedCertificate.new(self, cert)
+        IssuedCertificate.new(self, cert, ca_text)
       end
 
       def self.create(key, type, options)
