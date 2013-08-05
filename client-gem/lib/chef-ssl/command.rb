@@ -161,7 +161,11 @@ command :sign do |c|
           cert_text = ask("Paste cert text") do |q|
             q.gather = ""
           end
-          cert = req.issue_certificate(cert_text.join("\n"))
+          ca_text = ask("Paste CA-(chain) text (or leave empty)") do |q|
+            q.gather = ""
+          end
+          cert = req.issue_certificate(cert_text.join("\n"), ca_text.join("\n"))
+          #cert.ca = ca_text
         end
         menu.choice :no do
           nil
